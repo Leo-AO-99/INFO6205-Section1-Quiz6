@@ -10,8 +10,14 @@ def quicksort(arr, low=0, high=None):
     Returns:
         Sorted list
     """
+    if high is None:
+        high = len(arr) - 1
     
-    # TODO: Implement QuickSort using the partition helper function
+    if low < high:
+        pivot_idx = partition(arr, low, high)
+
+        quicksort(arr, low, pivot_idx - 1)
+        quicksort(arr, pivot_idx + 1, high)
     
     return arr
 
@@ -28,10 +34,19 @@ def partition(arr, low, high):
     Returns:
         The position of the pivot after partitioning
     """
+
+    pivot = arr[high]
     
-    #TODO: Implement the partition method
+    i = low - 1
     
-    pass
+    for j in range(low, high):
+        if arr[j] <= pivot:
+            i += 1
+            swap(arr, i, j)
+    
+    swap(arr, i + 1, high)
+    
+    return i + 1
 
 
 def swap(arr, i, j):
